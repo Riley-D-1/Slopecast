@@ -9,95 +9,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Results</title>
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" >
+    <link href="{{ url_for('static', filename='css/api_result.css') }}" rel="stylesheet" >
 </head>
 <body>
     <div class="header"> 
-        Slopecast 
+        Slopecast: The weather of your favourite slopes worldwide brought to you!
         <div class="header-right">
             <a class="home" href="/">Home</a>
             <a class="about"href="/about">About</a>
             <a class="help" href="/help_">Help</a>
         </div>
     </div>
-    <h1>Weather Report for Query {{Query_location}} {{query_coords}}</h1>
-    <h3>(Location of Weaher Data): {{location}} {{region}} {{country}} {{coords}}</h3>
+        <h1>Weather Report for {{Query_location}} [{{query_coords}}]</h1>
+    <h3>(Location of Weather Data): {{location}} {{region}} {{country}} {{coords}}</h3>
     <h5>Last Updated: {{last_updated}}</h5>
     <h2>Current Info</h2>
-    Local Time : {{local_time}}
-    <br>
-    Current Temp (C°): {{current_temperature}}
-    <br>
-    Feels like (C°): {{feelslike_c}}
-    <br>
-    Windchill (C°): {{windchill_c}}
-    <br>
-    Condition:{{current_condition}}
-    <br>
-    <image src = "{{current_condition_icon}}"></image>
-    <br>
-    Wind: {{wind_kph}} (Km/h) {{wind_dir}}
-    <br>
-    Preciptation (mm): {{current_precipatation}}
-    <br>
-    Visibility (Km): {{current_vis_km}}
-    <br>
-    Hudmidity: {{current_humidity}}
-    <br>
-    UV: {{current_uv}}
-    <br>
+    <p>Local Time: {{local_time}}</p>
+    <p>Current Temp (C°): {{current_temperature}}</p>
+    <p>Feels like (C°): {{currrent_feels_like}}</p>
+    <p>Windchill (C°): {{currrent_windchill}}</p>
+    <p>Condition: {{current_condition}}</p>
+    <img src="{{current_condition_icon}}" alt="Condition icon">
+    <p>Wind: {{current_wind_speed}} Km/h {{current_wind_dir}}</p>
+    <p>Precipitation (mm): {{current_precipatation}}</p>
+    <p>Visibility (Km): {{current_vis_km}}</p>
+    <p>Humidity: {{current_humidity}}</p>
+    <p>UV: {{current_uv}}</p>
     <h1>Day Forecast</h1>
-    Date: {{date_of_day}}
-    <br>
-    Sunrise:{{sunrise}}
-    <br>
-    Sunset:{{sunset}}
-    <br>
-    Day Condition {{day_condition}}
-    <br>
-    <image src = "{{day_icon}}"></image>
-    <br>
-    Max Temp (C°): {{max_temp}}
-    <br>
-    Min Temp (C°): {{min_temp}}
-    <br>
-    Average Temp (C°): {{avg_temp}}
-    <br>
-    Max Wind Speed (Km/h) : {{max_wind_kph}}
-    <br>
-    Average Vis (Km) : {{average_vis}}
-    <br>
-    Uv: {{uv}}
-    <br>
-    Daily Chance of Rain : {{daily_chance_rain}}%
-    <br>
-    Daily Chance of Snow : {{daily_chance_snow}}%
-    <br>
-    Total Precipation in last 24 hours (mm) : {{total_precip}}
-    <br>
-    Snowfall in last 24 hours (cm): {{totalsnow_cm}}
-    <br>
-    <h1>Hour by Hour breakdown:</h1>
-    {{% for hour in hourly % }}
-        <h2>{{ hour.time }}</h1> 
-        Temperature (C°):{{hour.temperature}}
-        <br> 
-        Feels like (C°): {{hour.feels_like}}
-        <br>
-        Windchill (C°): {{hour.feels_like}}
-        <br>
-        Condition:{{hour.condition}}
-        <img src="{{ hour.condition_icon }}">
-        <br>
-        Wind: {{ hour.wind_speed }} (Km/h) {{ hour.wind_dir }}
-        <br>
-        Precipitation (mm): {{ hour.precipitation }}
-        <br>
-        Humidity: {{ hour.humidity }}%
-        <br>
-        Visibility (Km): {{ hour.vis_km }}
-        <br>
-        UV: {{ hour.uv }}
-        <br>
+    <p>Date: {{date_of_day}}</p>
+    <p>Sunrise: {{sunrise}}</p>
+    <p>Sunset: {{sunset}}</p>
+    <p>Day Condition: {{day_condition}}</p>
+    <img src="{{day_icon}}" alt="Day icon">
+    <p>Max Temp (C°): {{max_temp}}</p>
+    <p>Min Temp (C°): {{min_temp}}</p>
+    <p>Average Temp (C°): {{avg_temp}}</p>
+    <p>Max Wind Speed (Km/h): {{max_wind_kph}}</p>
+    <p>Average Vis (Km): {{average_vis}}</p>
+    <p>UV: {{uv}}</p>
+    <p>Daily Chance of Rain: {{daily_chance_rain}}%</p>
+    <p>Daily Chance of Snow: {{daily_chance_snow}}%</p>
+    <p>Total Precipitation (mm): {{total_precip}}</p>
+    <p>Snowfall (cm): {{totalsnow_cm}}</p>
+
+    <h1>Hour by Hour Breakdown:</h1>
+    {% for hour in hourly %}
+        <h2>{{ hour.time }}</h2>
+        <p>Temperature (C°): {{hour.temperature}}</p>
+        <p>Feels like (C°): {{hour.feels_like}}</p>
+        <p>Windchill (C°): {{hour.feels_like}}</p>
+        <p>Condition: {{hour.condition}}</p>
+        <img src="{{ hour.condition_icon }}" alt="Hour condition icon">
+        <p>Wind: {{ hour.wind_speed }} Km/h {{ hour.wind_dir }}</p>
+        <p>Precipitation (mm): {{ hour.precipitation }}</p>
+        <p>Humidity: {{ hour.humidity }}%</p>
+        <p>Visibility (Km): {{ hour.vis_km }}</p>
+        <p>UV: {{ hour.uv }}</p>
     {% endfor %}
 </body>
 </html>

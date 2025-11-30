@@ -5,6 +5,7 @@ An OSS (Open Source Software) website for the snowfields using a weather API. Se
 - For Hackclub Siege (Theme: Winter)
 - I love the mountains and checking the snowfall and weather of my favourite resorts I do almost everyday in winter.
 - Build my flask skills and coding repoitre by building a site that has a backend
+- Fufil shortcomings with existing software by specialising the data and providing everything needed for skiiers and snowboarders, being more detailed than other apps but not super detailed.
 ## How does it hit the theme?
 - Mountains and Winter go hand in hand, many people love alpine sports and that's only possbile thanks to the season delivering snow onto our mountain ranges
 ## Inspo

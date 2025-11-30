@@ -1,7 +1,5 @@
 from flask import Flask, render_template, request
 import requests
-import json
-import time 
 import os
 from dotenv import load_dotenv
 load_dotenv()
@@ -17,21 +15,27 @@ def about():
 @app.route('/help_')
 def help_():
     return render_template("help.html")
-@app.route('/search', methods=['GET', 'POST'])
+@app.route('/search', methods=['POST'])
 def search():
-    query = request.form['query'].lower()
-    items = ski_resorts_top100
+    query = request.form.get('query', '').strip().lower()
+    print(query)
+    if not query:
+        return render_template("error.html",error_code = "N/A")
     found_items = []
-    for item in items:
-        if query.lower() in items.lower():
-            found_items.append(item)
-    render_template("search_result.html",item)
-@app.route('/api',)
+    for name in ski_resorts_top100.keys():
+        if query in name.lower():
+            print("Match")
+            found_items.append(name)
+    return render_template("search_result.html",results = found_items)
+@app.route('/api')
 def api():
-    resort = ""
-    get_weather("Thredbo")
-    return render_template('api_result')
+    location = request.args.get("location","Thredbo")
+    print(location)
+    coords = ski_resorts_top100.get(location)
+    coords_ = f"{coords[0]},{coords[1]}"
+    return get_weather(coords_,location)
 # AI MADE list of top ski resorts with coords 
+
 ski_resorts_top100 = {
     # --- Australia ---
     "Perisher (Australia)": (-36.405, 148.411),
@@ -39,13 +43,13 @@ ski_resorts_top100 = {
     "Falls Creek (Australia)": (-36.865, 147.278),
     "Mt Buller (Australia)": (-37.146, 146.450),
     "Mt Hotham (Australia)": (-36.980, 147.133),
-    "Mt Baw Baw (Australia)": (-37.833, 146.283),
-    "Lake Mountain (Australia)": (-37.433, 145.883),
+    "Selwyn (Australia)": (-35.770, 148.660),
+    "Charlotte Pass (Australia)": (-36.431, 148.328),
     "Dinner Plain (Australia)": (-37.033, 147.183),
     "Mt Stirling (Australia)": (-37.033, 146.450),
-    "Ben Lomond (Tasmania)": (-41.533, 147.233),
-    "Mt Mawson (Tasmania)": (-42.750, 146.583),
-    "Corin Forest (ACT)": (-35.433, 148.883),
+    "Ben Lomond (Australia)": (-41.533, 147.233),
+    "Mt Mawson (Australia)": (-42.750, 146.583),
+    "Corin Forest (Australia)": (-35.433, 148.883),
 
     # --- Japan ---
     "Niseko United (Japan)": (42.804, 140.687),
@@ -68,7 +72,7 @@ ski_resorts_top100 = {
     "Big White (Canada)": (49.700, -119.083),
     "Mont Tremblant (Canada)": (46.210, -74.580),
     "Vail (USA)": (39.640, -106.374),
-    "Aspen Snowmass (USA)": (39.208, -106.949),
+    "Aspen (USA)": (39.208, -106.949),
     "Breckenridge (USA)": (39.481, -106.038),
     "Telluride (USA)": (37.937, -107.812),
     "Jackson Hole (USA)": (43.587, -110.827),
@@ -133,7 +137,7 @@ ski_resorts_top100 = {
     "Las Leñas (Argentina)": (-35.150, -70.050),
 }
 
-def get_weather(location):
+def get_weather(location,name):
     params = {
         "key":api_key,
         "q":location,
@@ -141,9 +145,10 @@ def get_weather(location):
     }
     response = requests.get(base_url,params=params)
     if response.status_code == 200:
-        print(response.json())
         data = simplify_data(response.json())
-        return render_template("results.html",**data)
+        data["Query_location"] = name
+        data["query_coords"] = location
+        return render_template("api_result.html",**data)
     # Check for "error"
     else:
         print("Error Occured")
@@ -172,8 +177,6 @@ def simplify_data(data):
                 "uv": hour["uv"],
             })
         new_data = {
-            "Query_location": data.get("location", {}),
-            "query_coords": data.get("coords", {}),
             "location":data["location"]["name"],
             "region": data["location"]["region"],
             "country": data["location"]["country"],
@@ -189,9 +192,9 @@ def simplify_data(data):
             "current_wind_speed":data["current"]["wind_kph"],
             "current_wind_dir":data["current"]["wind_dir"],
             "current_precipatation":data["current"]["precip_mm"],
-            "current_vis_km":data["current"]["vis_km"],
+            "current_vis_km": data["current"]["vis_km"],
             "current_humidity":data["current"]["humidity"],
-            "current_uv":data["current"]["uv"],
+            "current_uv": data["current"]["uv"],
             # Forecast Day
             "date_of_day": forecast_day["date"],
             "sunrise": forecast_day["astro"]["sunrise"],

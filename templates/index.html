@@ -13,7 +13,7 @@
 </head>
 <body>
     <div class="header"> 
-        Slopecast 
+        Slopecast: The weather of your favourite slopes worldwide brought to you! 
         <div class="header-right">
             <a class="home" href="/">Home</a>
             <a class="about"href="/about">About</a>
@@ -23,44 +23,43 @@
     <div class="container">
         <img src="{{ url_for('static', filename='/images/pexels-pixabay-209955.jpg') }}" alt="Snow" id = "snow_img">
         <div class="centered">SLOPECAST</div>
-        <form id = "search_box">
-            <input id = "search" type="text" placeholder="Search.." value="{{ query }}">
+        <form method="POST" action="/search" id = "search_box">
+            <input id = "search" type="text" placeholder="Search.." name="query" autocomplete="off">
             <button id = "search_icon" type="submit"><i class="fa fa-search"></i></button>
         </form>
         
     </div>
     <!-- Body -->
-    <h2>Slopecast: The weather of your favourite slopes worldwide brought to you!</h2>
     <p></p>
     <h2>Featured resorts</h2>
     <div id = "thumbnails">
-        <a href = "/api?resort=Perisher (Australia)" >
+        <a href = "/api?location=Perisher%20(Australia)" >
             <img src="{{ url_for('static', filename='images/perisher-own.jpg') }}"alt="perisher-own" id = "Perisher">
-            <label for="Perisher">Perisher</label>
+            <p class = "resort_labels">Perisher</p>
         </a>
-        <a href = "/api">
+        <a href = "/api?location=Thredbo%20(Australia)">
             <img src="{{ url_for('static', filename='images/Thredbo_ski_resort.jpg') }}" alt="Thredbo" id="Thredbo">
-            <label for="Thredbo">Thredbo</label>
+            <p class = "resort_labels">Thredbo</p>
         </a>
-        <a href = "/api">
+        <a href = "/api?location=Selwyn%20(Australia)">
             <img src="{{ url_for('static', filename='images/selwyn.jpg') }}" alt="Selwyn" id = "selwyn">
-            <label for="selwyn">Selwyn</label>
+            <p class = "resort_labels">Selwyn</p>
         </a>
-        <a href = "/api">
+        <a href="/api?location=Falls%20Creek%20(Australia)">
             <img src="{{ url_for('static', filename='images/falls_creek.jpg') }}" alt="Falls_Creek" id = "Falls_Creek">
-            <label for="Falls_Creek">Falls Creek</label>
+            <p class = "resort_labels">Falls Creek</p>
         </a>
-        <a href = "/api">
+        <a href="/api?location=Vail%20(USA)">
             <img src="{{ url_for('static', filename='images/vail.jpg') }}" alt="Vail" id = "vail">
-            <label for="vail">Vail</label>
+            <p class = "resort_labels">Vail</p>
         </a>
-        <a href = "/api">
-        <img src="{{ url_for('static', filename='images/aspen.jpg') }}" id="aspen" alt = "Aspen">
-        <label for="aspen">Aspen</label>
+        <a href="/api?location=Aspen%20(USA)">
+            <img src="{{ url_for('static', filename='images/aspen.jpg') }}" id="aspen" alt = "Aspen">
+            <p class = "resort_labels">Aspen</p>
         </a>
-        <a href = "/api">
+        <a href="/api?location=Whistler%20Blackcomb%20(Canada)">
             <img src="{{ url_for('static', filename='images/whistler.jpg') }}" alt="Whistler" id = "whistler">
-            <label for="whistler">Whistler</label>
+            <p class = "resort_labels">Whistler</p>
         </a>
     </div>
     <!-- Footer -->

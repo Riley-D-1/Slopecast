@@ -12,18 +12,21 @@
 </head>
 <body>
     <div class="header"> 
-        Slopecast 
+        Slopecast: The weather of your favourite slopes worldwide brought to you!  
         <div class="header-right">
             <a class="home" href="/">Home</a>
             <a class="about"href="/about">About</a>
             <a class="help" href="/help_">Help</a>
         </div>
     </div>
-    {% for item in found_items %}
-    <a href="{{ url_for('api') }}?resort={{ item }}">
-        {item}
-    </a>
+    <ul>
+    {% for resort in results %}
+        <li><a class="other" href="{{ url_for('api') }}?location={{ resort }}">{{ resort }}</a></li>
+    {% else %}
+        <li>No resorts found.</li>
+    {% endfor %}
+    </ul>
     <br>
-    <a href="/">Back to home</a>
+    <a class = "other" href="/">Back to home</a>
 </body>
 </html>

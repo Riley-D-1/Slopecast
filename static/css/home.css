@@ -1,14 +1,18 @@
 #search{
-    font-size:25px;
+    font-size:30px;
     border:#000000;
     border: 10px;
 }
+input:focus {
+    outline: none;
+}
+
 #search_icon{
     border-color: #2C3E50;
     border-style:solid;
     background-color: #2C3E50;
     color: rgb(255, 255, 255);
-    font-size: 16px;
+    font-size: 26px;
     margin-right: 10px;
 }
 #search_box{
@@ -37,7 +41,7 @@
     height:20vw;
     margin:20px;
 }
-#thumbnails label{
+.resort_labels{
     color:rgb(0, 47, 255);
     font-family: 'Oswald', sans-serif;
     text-decoration: none;
