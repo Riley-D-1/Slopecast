@@ -1,9 +1,8 @@
 from flask import Flask, render_template, request
 import requests
 import os
-from dotenv import load_dotenv
-load_dotenv()
-api_key = os.getenv("API_KEY")
+
+api_key = os.environ.get("API_KEY")
 base_url = "https://api.weatherapi.com/v1/forecast.json"
 app = Flask(__name__)
 @app.route('/')
