@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" >
+    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" >
+</head>
+<body>
+    <div class="header">  
+        <img src="{{ url_for('static',filename='icon/Solar-Sonar.png') }}" class="image" style="max-width: 40px; max-height: 40px" >
+        <div class="header-left">   
+            Slopecast
+        </div> 
+        <div class="header-right">
+            <a class="home" href="/">Home</a>
+            <a class="about"href="/about">About</a>
+            <a class="help" href="/help_page">Help</a>
+        </div>
+    </div>
+    <div class="container">
+        <img src="../images/pexels-pixabay-209955.jpg" alt="Snow" id = "snow_img">
+        <div class="centered">About:</div>
+    </div>
+    <h2>Why was this project made?</h2>  
+    <h5>This project was made to fufil the shortcomings of the current websites out! </h5>
+    
+    <list>
+        <ul></ul>
+    </list>
+     <div id = "footer">
+        
+    </div>
+    <div id = "link_tree">
+        <br><br>
+        Slopecast is an OSS project (Open Source Software).
+        <br>
+        <a href = "https://github.com/Riley-D-1/Slopecast">View on Github</a>
+        <br>
+        <a href = "https://github.com/Riley-D-1">Check out the creator!</a>
+        <br>
+    </div>
+</body>
+</html>

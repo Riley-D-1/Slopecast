@@ -1,0 +1,40 @@
+
+
+#search{
+    font-size:20px;
+    border:#000000;
+    border: 10px;
+}
+#search_icon{
+    border-color: #2C3E50;
+    border-style:solid;
+    background-color: #2C3E50;
+    color: rgb(255, 255, 255);
+    font-size: 16px;
+    margin-right: 10px;
+}
+#search_box{
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    position: absolute;
+    top: 65%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+   
+#thumbnails{
+    margin: 8;
+    padding: 8px;
+    img{
+    max-width: 20%;
+    }
+    label{
+        color:blue
+    }
+    
+}
+a{
+    color:white;
+}
