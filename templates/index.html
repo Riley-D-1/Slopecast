@@ -12,37 +12,59 @@
     <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" >
 </head>
 <body>
-    <div class="header">  
-        <div class="header-left">   
-            Slopecast
-        </div> 
+    <div class="header"> 
+        Slopecast 
         <div class="header-right">
             <a class="home" href="/">Home</a>
             <a class="about"href="/about">About</a>
-            <a class="help" href="/help_page">Help</a>
+            <a class="help" href="/help_">Help</a>
         </div>
     </div>
     <div class="container">
-        <img src="../images/pexels-pixabay-209955.jpg" alt="Snow" id = "snow_img">
+        <img src="{{ url_for('static', filename='/images/pexels-pixabay-209955.jpg') }}" alt="Snow" id = "snow_img">
         <div class="centered">SLOPECAST</div>
         <form id = "search_box">
-            <input id = "search" type="text" placeholder="Search..">
+            <input id = "search" type="text" placeholder="Search.." value="{{ query }}">
             <button id = "search_icon" type="submit"><i class="fa fa-search"></i></button>
         </form>
-    </div>
-    <h2> The weather of your favourite slopes worldwide brought to you!</h2>
-    <div id = "thumbnails">
-        <h2>Featured resorts</h2>
-        <img src="../images/perisher-own.jpg" alt="perisher-own" id = "Perisher">
-        <label for="Perisher">Perisher</label>
-        <img src="img2.jpg" alt="Image 2">
-        <img src="img3.jpg" alt="Image 3">
-        <img src="img4.jpg" alt="Image 3">
-        <img src="img4.jpg" alt="Image 3">
-    </div>
-    <div id = "footer">
         
     </div>
+    <!-- Body -->
+    <h2>Slopecast: The weather of your favourite slopes worldwide brought to you!</h2>
+    <p></p>
+    <h2>Featured resorts</h2>
+    <div id = "thumbnails">
+        <a href = "/api?resort=Perisher (Australia)" >
+            <img src="{{ url_for('static', filename='images/perisher-own.jpg') }}"alt="perisher-own" id = "Perisher">
+            <label for="Perisher">Perisher</label>
+        </a>
+        <a href = "/api">
+            <img src="{{ url_for('static', filename='images/Thredbo_ski_resort.jpg') }}" alt="Thredbo" id="Thredbo">
+            <label for="Thredbo">Thredbo</label>
+        </a>
+        <a href = "/api">
+            <img src="{{ url_for('static', filename='images/selwyn.jpg') }}" alt="Selwyn" id = "selwyn">
+            <label for="selwyn">Selwyn</label>
+        </a>
+        <a href = "/api">
+            <img src="{{ url_for('static', filename='images/falls_creek.jpg') }}" alt="Falls_Creek" id = "Falls_Creek">
+            <label for="Falls_Creek">Falls Creek</label>
+        </a>
+        <a href = "/api">
+            <img src="{{ url_for('static', filename='images/vail.jpg') }}" alt="Vail" id = "vail">
+            <label for="vail">Vail</label>
+        </a>
+        <a href = "/api">
+        <img src="{{ url_for('static', filename='images/aspen.jpg') }}" id="aspen" alt = "Aspen">
+        <label for="aspen">Aspen</label>
+        </a>
+        <a href = "/api">
+            <img src="{{ url_for('static', filename='images/whistler.jpg') }}" alt="Whistler" id = "whistler">
+            <label for="whistler">Whistler</label>
+        </a>
+    </div>
+    <!-- Footer -->
+    <div id = "footer"></div>
     <div id = "link_tree">
         <br><br>
         Slopecast is an OSS project (Open Source Software).

@@ -7,12 +7,23 @@
     <link href="https://fonts.googleapis.com/css2?family=Arimo:wght@400..700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Results</title>
+    <title>Search Query</title>
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" >
 </head>
 <body>
-    <h1>Weather Report for  {{resort location}} {{cords}}</h1>
-    Weather:{{value}}
-    Icon : ![{scr for img}]
+    <div class="header"> 
+        Slopecast 
+        <div class="header-right">
+            <a class="home" href="/">Home</a>
+            <a class="about"href="/about">About</a>
+            <a class="help" href="/help_">Help</a>
+        </div>
+    </div>
+    {% for item in found_items %}
+    <a href="{{ url_for('api') }}?resort={{ item }}">
+        {item}
+    </a>
+    <br>
+    <a href="/">Back to home</a>
 </body>
 </html>

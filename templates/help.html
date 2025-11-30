@@ -9,26 +9,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet" >
-    <link href="{{ url_for('static', filename='css/home.css') }}" rel="stylesheet" >
 </head>
 <body>
-    <div class="header">  
-        <img src="{{ url_for('static',filename='icon/Solar-Sonar.png') }}" class="image" style="max-width: 40px; max-height: 40px" >
-        <div class="header-left">   
-            Slopecast
-        </div> 
+    <div class="header"> 
+        Slopecast 
         <div class="header-right">
             <a class="home" href="/">Home</a>
             <a class="about"href="/about">About</a>
-            <a class="help" href="/help_page">Help</a>
+            <a class="help" href="/help_">Help</a>
         </div>
     </div>
     <div class="container">
-        <img src="../images/pexels-pixabay-209955.jpg" alt="Snow" id = "snow_img">
+        <img src="{{ url_for('static', filename='/images/pexels-pixabay-209955.jpg') }}" alt="Snow" id = "snow_img">
         <div class="centered">Help:</div>
     </div>
+    <!-- Core Body -->
     <h1>Help</h1>
     <br><br><br>
+    <!-- Footer -->
     <div id = "footer">
         
     </div>

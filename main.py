@@ -14,16 +14,23 @@ def home():
 @app.route('/about')
 def about():
     return render_template("about.html")
-@app.route('/help')
+@app.route('/help_')
 def help_():
-    return render_template("about.html")
+    return render_template("help.html")
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     query = request.form['query'].lower()
     items = ski_resorts_top100
+    found_items = []
     for item in items:
         if query.lower() in items.lower():
-            get_weather(item)
+            found_items.append(item)
+    render_template("search_result.html",item)
+@app.route('/api',)
+def api():
+    resort = ""
+    get_weather("Thredbo")
+    return render_template('api_result')
 # AI MADE list of top ski resorts with coords 
 ski_resorts_top100 = {
     # --- Australia ---
@@ -135,30 +142,78 @@ def get_weather(location):
     response = requests.get(base_url,params=params)
     if response.status_code == 200:
         print(response.json())
-        data= simplify_data(response.json())
-        render_template("results.html",data)
-        return 
+        data = simplify_data(response.json())
+        return render_template("results.html",**data)
     # Check for "error"
     else:
         print("Error Occured")
-        return None
- 
+        return render_template('error.html',error_code=response.status_code)
+
 def simplify_data(data):
     if data:
-        real = data[""]
-        region = data["location"]["region"]
-        country = data["location"]["country"]  
-        temperature = data["current"]["temp_c"] 
-        condition = data["current"]["condition"]["text"]
-        if weather == "":
-            icon_path = ""
-        elif weather == "":
-            icon_path = ""
+        forecast_day = data["forecast"]["forecastday"][0]
+        hourly_list = []
+        for hour in  data["forecast"]["forecastday"][0]["hour"]:
+            hourly_list.append({
+                "time": hour["time"],
+                "temperature": hour["temp_c"],
+                "feels_like": hour["feelslike_c"],
+                "windchill": hour["windchill_c"],
+                "condition": hour["condition"]["text"],
+                "condition_icon": hour["condition"]["icon"],
+                "wind_speed": hour["wind_kph"],
+                "wind_dir": hour["wind_dir"],
+                "precipitation": hour["precip_mm"],
+                "snow": hour["temp_c"],
+                "chancerain": hour["chance_of_rain"],
+                "chancesnow": hour["chance_of_snow"],
+                "vis_km": hour["vis_km"],
+                "humidity": hour["humidity"],
+                "uv": hour["uv"],
+            })
+        new_data = {
+            "Query_location": data.get("location", {}),
+            "query_coords": data.get("coords", {}),
+            "location":data["location"]["name"],
+            "region": data["location"]["region"],
+            "country": data["location"]["country"],
+            "coords":f"{data['location']['lat']}, {data['location']['lon']}",
+            "last_updated":data["current"]["last_updated"],
+            # Current Infomation
+            "local_time":data["location"]["localtime"],
+            "current_temperature": data["current"]["temp_c"] ,
+            "currrent_feels_like": data["current"]["feelslike_c"] ,
+            "currrent_windchill": data["current"]["windchill_c"] ,
+            "current_condition": data["current"]["condition"]["text"],
+            "current_condition_icon":data["current"]["condition"]["icon"],
+            "current_wind_speed":data["current"]["wind_kph"],
+            "current_wind_dir":data["current"]["wind_dir"],
+            "current_precipatation":data["current"]["precip_mm"],
+            "current_vis_km":data["current"]["vis_km"],
+            "current_humidity":data["current"]["humidity"],
+            "current_uv":data["current"]["uv"],
+            # Forecast Day
+            "date_of_day": forecast_day["date"],
+            "sunrise": forecast_day["astro"]["sunrise"],
+            "sunset": forecast_day["astro"]["sunset"],
+            "day_condition": forecast_day["day"]["condition"]["text"],
+            "day_icon": forecast_day["day"]["condition"]["icon"],
+            "max_temp": forecast_day["day"]["maxtemp_c"],
+            "min_temp": forecast_day["day"]["mintemp_c"],
+            "avg_temp": forecast_day["day"]["avgtemp_c"],
+            "max_wind_kph": forecast_day["day"]["maxwind_kph"],
+            "average_vis": forecast_day["day"]["avgvis_km"],
+            "uv": forecast_day["day"]["uv"],
+            "daily_chance_rain": forecast_day["day"]["daily_chance_of_rain"],
+            "daily_chance_snow": forecast_day["day"]["daily_chance_of_snow"],
+            "total_precip": forecast_day["day"]["totalprecip_mm"],
+            "totalsnow_cm": forecast_day["day"]["totalsnow_cm"],
+            # Hour by hour breakdown
+            "hourly":hourly_list
+         }
+        return new_data
     else:
-        print("Error fetching data")
-        return f"Something has gone wrong! It could be user error or developer error {error}"
-
-        # Set the html to say so 
+        return None
 
 if __name__ == '__main__':
     app.run(debug=True)
